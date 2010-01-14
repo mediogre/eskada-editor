@@ -4,6 +4,13 @@ int map_width, map_height;
 irr::scene::IMeshSceneNode* sn_greed;
 irr::scene::IMeshSceneNode* map_node;
 
+//текстурные координаты для тайлов в ширину
+const float tex_x_l[16] = {0.0000f, 0.064450, 0.126950, 0.189450, 0.251950, 0.314450, 0.376950, 0.439450, 0.501950, 0.564450, 0.626950, 0.689450, 0.751950, 0.814450, 0.876950, 0.939450};
+const float tex_x_r[16] = {0.06250, 0.125000, 0.187500, 0.250000, 0.312500, 0.375000, 0.437500, 0.500000, 0.562500, 0.625000, 0.687500, 0.750000, 0.812500, 0.875000, 0.937500, 1.00000f};
+
+//текстурные координаты для тайлов в высоту
+const float tex_y_u[4]  = {0.000f, 0.25800, 0.5080, 0.7580};
+const float tex_y_d[4]  = {0.2500, 0.50000, 0.7500, 1.000f};
 
 struct tile
 {
@@ -168,16 +175,10 @@ void setTileTex(int x, int z, int texType, int texNum)
     int vert_idx = base_z * 64 * 4 + base_x * 4;
 
     //определяем новые координаты текстуру для этого полигона
-    float tx = 0.06250 * texNum;   //(1.0f/16);
-    float ty = 0.33330 * texType;  //(1.0f/3)
-
-    float tw = 0.06250;
-    float th = 0.33330;
-
-    vbuf[vert_idx  ].TCoords = irr::core::vector2df(tx,     ty);    //0,0
-    vbuf[vert_idx+1].TCoords = irr::core::vector2df(tx+tw,  ty);    //1,0
-    vbuf[vert_idx+2].TCoords = irr::core::vector2df(tx+tw,  ty+th); //1,1
-    vbuf[vert_idx+3].TCoords = irr::core::vector2df(tx,     ty+th); //0,1
+    vbuf[vert_idx  ].TCoords = irr::core::vector2df(tex_x_l[texNum], tex_y_u[texType]); //0,0
+    vbuf[vert_idx+1].TCoords = irr::core::vector2df(tex_x_r[texNum], tex_y_u[texType]); //1,0
+    vbuf[vert_idx+2].TCoords = irr::core::vector2df(tex_x_r[texNum], tex_y_d[texType]); //1,1
+    vbuf[vert_idx+3].TCoords = irr::core::vector2df(tex_x_l[texNum], tex_y_d[texType]); //0,1
 
     mesh->getMeshBuffer(buf_num)->setDirty();
 }
