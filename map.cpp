@@ -273,6 +273,8 @@ void buildEmptyMap(int w, int h)
     map_node = smgr->addMeshSceneNode(dmes);
     dmes->drop();
     map_node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    map_node->setMaterialFlag(irr::video::EMF_BILINEAR_FILTER, false);
+
     map_node->setMaterialTexture(0, t_world_1);
 
     //создаем "подложку" для определения коллизий
