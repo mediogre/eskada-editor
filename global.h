@@ -2,7 +2,7 @@
 #define GLOBAL_H_INCLUDED
 
 #include <irrlicht.h>
-#include <vector.h>
+#include <vector>
 
 class MyEventReceiver : public irr::IEventReceiver
 {

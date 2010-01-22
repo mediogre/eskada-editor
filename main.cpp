@@ -8,7 +8,7 @@ irr::gui::IGUIEnvironment* guienv;
 int main(int argc, char** argv)
 {
     MyEventReceiver receiver;
-    device = irr::createDevice( irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(800, 600), 16, false, false, false, &receiver);
+    device = irr::createDevice( irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(800, 600), 32, false, false, false, &receiver);
     device->setWindowCaption(L"Eskada");
     if (!device) return 1;
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         now = device->getTimer()->getTime();
 
         if (now - sceneStartTime > sceneSkipTime)
-		{
+	{
             driver->beginScene(true, true, irr::video::SColor(0,100,100,100));
             camUpdate();
             smgr->drawAll();
@@ -44,16 +44,16 @@ int main(int argc, char** argv)
             guienv->drawAll();
 
             driver->endScene();
-		}
+	}
 
-		int fps = driver->getFPS();
-		if (lastFPS != fps)
+	int fps = driver->getFPS();
+	if (lastFPS != fps)
         {
             test1->setText(irr::core::stringw(fps).c_str());
             lastFPS = fps;
         }
 
-
+	device->yield();
     }
 
     unloadResourses();
